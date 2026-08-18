@@ -29,12 +29,12 @@ jobs:
 
       # Restore dependencies
       - name: Restore
-        run: dotnet restore MySolution.sln
+        run: dotnet restore MySolution.slnx
 
       # Build the solution
       - name: Build
-        run: dotnet build MySolution.sln --no-restore --configuration Release
+        run: dotnet build MySolution.slnx --no-restore --configuration Release
 
       # Run unit tests
       - name: Test
-        run: dotnet test MySolution.sln --no-build --configuration Release --verbosity normal
+        run: dotnet test MySolution.slnx --no-build --configuration Release --verbosity normal
