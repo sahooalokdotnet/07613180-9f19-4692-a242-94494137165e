@@ -6,7 +6,8 @@ var input = Console.ReadLine();
 
 if (!string.IsNullOrWhiteSpace(input))
 {
-    var result = SequenceSolver.LongestIncreasingSubsequence(input);
+    
+    var result = SequenceSolver.Find(input);
 
     Console.WriteLine($"Longest increasing subsequence: {result}");
 }
