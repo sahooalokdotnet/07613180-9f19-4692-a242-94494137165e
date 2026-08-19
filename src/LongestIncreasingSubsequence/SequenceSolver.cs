@@ -1,62 +1,58 @@
-﻿namespace LongestIncreasingSubsequence;
+﻿using System.Globalization;
+
+namespace LongestIncreasingSubsequence;
 
 public static class SequenceSolver
 {
-    public static string LongestIncreasingSubsequence(string input)
+    public static string Find(string input)
     {
-int[] nums = Array.ConvertAll(input.Split(' '), int.Parse);
+        if (string.IsNullOrWhiteSpace(input))
+            return string.Empty;
 
-    if (nums.Length == 0)
-        return "";
+        string[] parts = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-    int n = nums.Length;
+        int[] numbers = Array.ConvertAll(parts, int.Parse);
 
-    // dp[i] = length of the longest increasing subsequence
-    // ending at index i
-    int[] dp = new int[n];
+        if (numbers.Length == 1)
+            return numbers[0].ToString(CultureInfo.InvariantCulture);
 
-    // previous[i] = previous index in the subsequence
-    int[] previous = new int[n];
+        int bestStart = 0;
+        int bestLength = 1;
 
-    Array.Fill(dp, 1);
-    Array.Fill(previous, -1);
+        int currentStart = 0;
+        int currentLength = 1;
 
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < i; j++)
+        for (int i = 1; i < numbers.Length; i++)
         {
-            if (nums[j] < nums[i] && dp[j] + 1 > dp[i])
+            // Increasing compared to the immediately previous element
+            if (numbers[i] > numbers[i - 1])
             {
-                dp[i] = dp[j] + 1;
-                previous[i] = j;
+                currentLength++;
+
+                // Only update on strictly greater length.
+                // Therefore, if there is a tie, the earliest
+                // sequence is retained.
+                if (currentLength > bestLength)
+                {
+                    bestLength = currentLength;
+                    bestStart = currentStart;
+                }
+            }
+            else
+            {
+                // Increasing sequence has ended.
+                currentStart = i;
+                currentLength = 1;
             }
         }
-    }
 
-    // index of the earliest subsequence with maximum length
-    int maxLength = dp[0];
-    int endIndex = 0;
+        List<int> result = new List<int>();
 
-    for (int i = 1; i < n; i++)
-    {
-        if (dp[i] > maxLength)
+        for (int i = bestStart; i < bestStart + bestLength; i++)
         {
-            maxLength = dp[i];
-            endIndex = i;
+            result.Add(numbers[i]);
         }
-    }
 
-    // Reconstruct the subsequence
-    List<int> result = new List<int>();
-
-    while (endIndex != -1)
-    {
-        result.Add(nums[endIndex]);
-        endIndex = previous[endIndex];
-    }
-
-    result.Reverse();
-
-    return string.Join(" ", result);
+        return string.Join(" ", result);
     }
 }
