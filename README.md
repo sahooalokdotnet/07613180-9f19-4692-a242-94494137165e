@@ -18,3 +18,16 @@ BUILD/RUN On Local:
 Build: dotnet build
 Run: dotnet run
 Test: dotnet test
+
+Code Coverage Reporting:
+========================
+Run tests with coverage collection:
+
+	dotnet test MySolution.slnx --collect:"XPlat Code Coverage" --results-directory ./TestResults
+
+Generate an HTML report from the collected Cobertura files:
+
+	dotnet tool install --global dotnet-reportgenerator-globaltool
+	reportgenerator -reports:"TestResults/**/coverage.cobertura.xml" -targetdir:"CodeCoverage" -reporttypes:"Html;Cobertura"
+
+Open `CodeCoverage/index.html` to view the report. Generated `TestResults/` and `CodeCoverage/` directories are ignored by Git.
