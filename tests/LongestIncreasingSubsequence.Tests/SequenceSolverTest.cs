@@ -215,7 +215,7 @@ public class SequenceSolverTest
     }
 
     [Fact]
-    public void TestCase12_EmptyInput_ShouldReturnEmptyString()
+    public void TestCase12EmptyInputShouldReturnEmptyString()
     {
         // Arrange
         const string input = "";

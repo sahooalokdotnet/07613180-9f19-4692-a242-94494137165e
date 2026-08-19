@@ -1,4 +1,6 @@
-﻿namespace LongestIncreasingSubsequence;
+﻿using System.Globalization;
+
+namespace LongestIncreasingSubsequence;
 
 public static class SequenceSolver
 {
@@ -12,7 +14,7 @@ public static class SequenceSolver
         int[] numbers = Array.ConvertAll(parts, int.Parse);
 
         if (numbers.Length == 1)
-            return numbers[0].ToString();
+            return numbers[0].ToString(CultureInfo.InvariantCulture);
 
         int bestStart = 0;
         int bestLength = 1;
