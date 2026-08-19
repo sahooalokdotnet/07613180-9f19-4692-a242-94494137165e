@@ -213,4 +213,17 @@ public class SequenceSolverTest
         // Assert
         Assert.Equal("1 5 9", result);
     }
+
+    [Fact]
+    public void TestCase12_EmptyInput_ShouldReturnEmptyString()
+    {
+        // Arrange
+        const string input = "";
+
+        // Act
+        var result = SequenceSolver.Find(input);
+
+        // Assert
+        Assert.Equal(string.Empty, result);
+    }
 }
